@@ -1,6 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
+
+const BangkokMap = dynamic(() => import("./BangkokMap"), {
+  ssr: false,
+  loading: () => (
+    <div
+      role="status"
+      className="my-8 flex h-[430px] items-center justify-center rounded-3xl border border-white/15 bg-[#101516] text-white/60 sm:h-[530px]"
+    >
+      Loading map…
+    </div>
+  ),
+});
 
 const places = [
   {
@@ -124,6 +137,7 @@ export default function ExploreSection() {
         {filteredPlaces.length === 1 ? "place" : "places"} found
       </p>
 
+<BangkokMap />
       <div className="grid gap-5 sm:grid-cols-2">
         {filteredPlaces.map((place) => (
           <article
