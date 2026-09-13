@@ -1,3 +1,4 @@
+import ExploreSection from "@/components/ExploreSection";
 const cityStats = [
   { value: "31°C", label: "Weather" },
   { value: "42", label: "Air quality" },
@@ -64,7 +65,7 @@ export default function Home() {
           <div>
             <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#c6ff3d]/25 bg-[#c6ff3d]/8 px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-[#c6ff3d]">
               <span className="size-2 animate-pulse rounded-full bg-[#c6ff3d]" />
-              Bangkok is live
+              Bangkok preview
             </div>
 
             <h1 className="max-w-4xl text-6xl font-semibold leading-[0.92] tracking-[-0.055em] sm:text-7xl lg:text-[96px]">
@@ -78,10 +79,10 @@ export default function Home() {
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <button className="group flex items-center justify-center gap-3 rounded-full bg-[#f4f1e8] px-7 py-4 font-semibold text-black transition hover:bg-[#c6ff3d]">
+             <a href="#explore" className="group flex items-center justify-center gap-3 rounded-full bg-[#f4f1e8] px-7 py-4 font-semibold text-black transition hover:bg-[#c6ff3d]">
                 Explore Bangkok
                 <span className="transition group-hover:translate-x-1">→</span>
-              </button>
+              </a>
 
               <button className="rounded-full border border-white/15 px-7 py-4 font-semibold transition hover:border-white/40">
                 Build my route
@@ -100,12 +101,12 @@ export default function Home() {
                     Smart route
                   </p>
                   <h2 className="mt-1 text-xl font-semibold">
-                    Your Bangkok evening
+                    Sample Bangkok evening
                   </h2>
                 </div>
 
                 <div className="rounded-full bg-[#ff5a36] px-3 py-1.5 font-mono text-xs font-bold text-black">
-                  LIVE
+                  DEMO
                 </div>
               </div>
 
@@ -156,6 +157,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <ExploreSection />
 
         <footer className="flex items-center justify-between border-t border-white/10 py-5 font-mono text-[10px] uppercase tracking-[0.18em] text-white/30">
           <span>Bangkok · Thailand</span>
