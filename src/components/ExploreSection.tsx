@@ -18,6 +18,8 @@ const BangkokMap = dynamic(() => import("./BangkokMap"), {
 const places = [
   {
     id: "bacc",
+    longitude: 100.5303,
+latitude: 13.7467,
     name: "Bangkok Art and Culture Centre",
     category: "Culture",
     area: "Pathum Wan",
@@ -26,6 +28,8 @@ const places = [
   },
   {
     id: "benjakitti",
+    longitude: 100.5585,
+latitude: 13.7304,
     name: "Benjakitti Park",
     category: "Outdoors",
     area: "Khlong Toei",
@@ -34,6 +38,8 @@ const places = [
   },
   {
     id: "lumphini",
+    longitude: 100.5417,
+latitude: 13.7306,
     name: "Lumphini Park",
     category: "Outdoors",
     area: "Pathum Wan",
@@ -42,6 +48,8 @@ const places = [
   },
   {
     id: "museum-siam",
+    longitude: 100.4942,
+latitude: 13.7442,
     name: "Museum Siam",
     category: "Culture",
     area: "Phra Nakhon",
@@ -55,6 +63,10 @@ const categories = ["All", "Culture", "Outdoors"];
 export default function ExploreSection() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
+  const [mapTarget, setMapTarget] = useState<{
+  id: string;
+  request: number;
+} | null>(null);
 
   const filteredPlaces = places.filter((place) => {
     const searchText =
@@ -137,7 +149,10 @@ export default function ExploreSection() {
         {filteredPlaces.length === 1 ? "place" : "places"} found
       </p>
 
-<BangkokMap />
+      <div id="places-map" className="scroll-mt-6">
+        <BangkokMap places={filteredPlaces} mapTarget={mapTarget} />
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         {filteredPlaces.map((place) => (
           <article
@@ -146,7 +161,7 @@ export default function ExploreSection() {
           >
             <div
               aria-hidden="true"
-              className="absolute -right-8 -top-8 size-36 rounded-full blur-3xl"
+              className="pointer-events-none absolute -right-8 -top-8 size-36 rounded-full blur-3xl"
               style={{
                 backgroundColor: place.accent,
                 opacity: 0.12,
@@ -159,13 +174,36 @@ export default function ExploreSection() {
             >
               {place.category}
             </p>
+
             <h3 className="relative mt-6 text-2xl font-semibold tracking-tight">
               {place.name}
             </h3>
-            <p className="mt-2 text-sm text-white/70">{place.area}</p>
+
+            <p className="mt-2 text-sm text-white/70">
+              {place.area}
+            </p>
+
             <p className="mt-5 text-sm leading-6 text-white/60">
               {place.description}
             </p>
+
+            <button
+              type="button"
+              onClick={() => {
+                setMapTarget((previous) => ({
+                  id: place.id,
+                  request: (previous?.request ?? 0) + 1,
+                }));
+
+                document.getElementById("places-map")?.scrollIntoView({
+                  behavior: "instant",
+                  block: "start",
+                });
+              }}
+              className="relative mt-6 inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-medium text-white transition hover:border-[#c6ff3d] hover:text-[#c6ff3d] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c6ff3d]"
+            >
+              Show on map <span aria-hidden="true">↗</span>
+            </button>
           </article>
         ))}
       </div>
